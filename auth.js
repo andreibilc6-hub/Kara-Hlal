@@ -1,0 +1,3 @@
+(async function(){
+  try{const response=await fetch('/api/me',{credentials:'same-origin',cache:'no-store'});if(!response.ok){location.replace('/login.html?next='+encodeURIComponent(location.pathname));return}const data=await response.json();document.querySelectorAll('[data-user-name]').forEach(el=>el.textContent=data.user.displayName||data.user.username);const button=document.getElementById('logout');if(button)button.addEventListener('click',async()=>{button.disabled=true;try{await fetch('/api/logout',{method:'POST',credentials:'same-origin'})}finally{location.replace('/login.html')}})}catch{location.replace('/login.html')}
+})();
